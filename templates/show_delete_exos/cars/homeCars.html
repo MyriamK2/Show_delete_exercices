@@ -1,0 +1,159 @@
+{% extends 'show_delete_exos/base.html' %}
+
+
+{% block content %}
+
+{% load mathfilters %}
+
+<h1 class="text-center">Cars</h1>
+
+
+<section class="text-center my-5">
+    <h2>All Cars</h2>
+    
+    <button class="btn btn-outline-warning my-5">
+        <a class="text-dark" href={% url 'createCar' %}>Add a new Car</a>
+    </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Year</th>
+                <th scope="col">Color</th>
+                <th scope="col">Price</th>
+                <th scope="col">Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in carModel %}
+                <tr>
+                    <th scope="row">{{ x.id }}</th>
+                    <td>{{ x.brand }}</td>
+                    <td>{{ x.year }}</td>
+                    <td>{{ x.color }}</td>
+                    <td>{{ x.price }}</td>
+                    <td>{{ x.discount }}</td>
+                    <td>
+                        <form action="cars/destroy/{{ x.id }}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<hr>
+
+<section class="text-center my-5">
+    <h2 class="my-3">Under 4000€</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Year</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in under4000 %}
+                <tr>
+                    <th scope="row">{{ x.id }}</th>
+                    <td>{{ x.brand }}</td>
+                    <td>{{ x.year }}</td>
+                    <td><b>{{ x.price }}€</b></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% comment %} {% for x in under4000 %}
+        <div class="d-flex justify-content-center gap-5">
+            <p>{{ x.brand }}</p>
+            <p>{{ x.year }}</p>
+            <p>{{ x.color }}</p>
+            <b>{{ x.price }}€</b>
+        </div>
+            <p>--------------------------------</p>
+    {% endfor %} {% endcomment %}
+</section>
+
+<hr>
+
+<section class="text-center my-5">
+    <h2 class="my-3">Over 4000€</h2>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Year</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in over4000 %}
+                <tr>
+                    <th scope="row">{{ x.id }}</th>
+                    <td>{{ x.brand }}</td>
+                    <td>{{ x.year }}</td>
+                    <td><b>{{ x.price }}€</b></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% comment %} {% for x in over4000 %}
+        <div class="d-flex justify-content-center gap-5">
+            <p>{{ x.brand }}</p>
+            <p>{{ x.year }}</p>
+            <p>{{ x.color }}</p>
+            <b>{{ x.price }}€</b>
+        </div>
+            <p>--------------------------------</p>
+    {% endfor %} {% endcomment %}
+</section>
+
+<hr>
+
+<section class="text-center my-5">
+    <h2 class="my-3">Discount</h2>
+
+    <table class="table my-5">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Year</th>
+                <th scope="col">Color</th>
+                <th scope="col">Price</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Price after Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in carModel %}
+                <tr>
+                    <th scope="row">{{ x.id }}</th>
+                    <td>{{ x.brand }}</td>
+                    <td>{{ x.year }}</td>
+                    <td>{{ x.color }}</td>
+                    <td> <del>{{ x.price }}</del> </td>
+                    <td>{{ x.discount }}</td>
+                    {% with x.price|mul:x.discount|div:100 as reduc %}
+                    <td>{{ x.price|sub:reduc }}</td>
+                    {% endwith %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock  %}

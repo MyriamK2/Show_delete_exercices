@@ -1,0 +1,67 @@
+{% extends 'show_delete_exos/base.html' %}
+
+
+{% block content %}
+
+<h1 class="text-center">All Members</h1>
+
+<a href={% url 'create' %}>Add a Member</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for x in memberModel %}
+            <tr>
+                <th scope="row">{{ x.id }}</th>
+                <td>{{ x.name }}</td>
+                <td>{{ x.age }}</td>
+                <td>{{ x.gender }}</td>
+                <td>
+                    <form action="members/destroy/{{ x.id }}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock  %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <tr>
+    <th scope="row">2</th>
+    <td>Jacob</td>
+    <td>Thornton</td>
+    <td>@fat</td>
+    </tr>
+    <tr>
+    <th scope="row">3</th>
+    <td colspan="2">Larry the Bird</td>
+    <td>@twitter</td>
+    </tr> {% endcomment %}

@@ -1,0 +1,27 @@
+{% extends 'show_delete_exos/base.html' %}
+
+
+{% block content %}
+<h1 class="text-center">Women</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            {% comment %} <th scope="col">#</th> {% endcomment %}
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for x in allWomen %}
+            <tr>
+                {% comment %} <th scope="row">{{ x.id }}</th> {% endcomment %}
+                <td>{{ x.name }}</td>
+                <td>{{ x.age }}</td>
+                <td>{{ x.gender }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock  %}
