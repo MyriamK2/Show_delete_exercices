@@ -72,16 +72,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    {% comment %} {% for x in under4000 %}
-        <div class="d-flex justify-content-center gap-5">
-            <p>{{ x.brand }}</p>
-            <p>{{ x.year }}</p>
-            <p>{{ x.color }}</p>
-            <b>{{ x.price }}€</b>
-        </div>
-            <p>--------------------------------</p>
-    {% endfor %} {% endcomment %}
 </section>
 
 <hr>
@@ -109,16 +99,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-    {% comment %} {% for x in over4000 %}
-        <div class="d-flex justify-content-center gap-5">
-            <p>{{ x.brand }}</p>
-            <p>{{ x.year }}</p>
-            <p>{{ x.color }}</p>
-            <b>{{ x.price }}€</b>
-        </div>
-            <p>--------------------------------</p>
-    {% endfor %} {% endcomment %}
 </section>
 
 <hr>
@@ -148,7 +128,7 @@
                     <td> <del>{{ x.price }}</del> </td>
                     <td>{{ x.discount }}</td>
                     {% with x.price|mul:x.discount|div:100 as reduc %}
-                    <td>{{ x.price|sub:reduc }}</td>
+                    <td>{{ x.price|sub:reduc|floatformat:2 }}</td>
                     {% endwith %}
                 </tr>
             {% endfor %}
